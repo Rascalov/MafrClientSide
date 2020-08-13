@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="986.0" styleClass="Pane" stylesheets="@css/home.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mafr.HomeController">
+   <children>
+      <ImageView fitHeight="196.0" fitWidth="276.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/MafrLogo.png" />
+         </image>
+      </ImageView>
+      <VBox layoutX="-3.0" layoutY="207.0" prefHeight="102.0" prefWidth="992.0">
+         <children>
+            <TextField fx:id="serverUrl" promptText="Enter Server URL..." />
+            <PasswordField fx:id="serverPassword" prefHeight="26.0" prefWidth="244.0" promptText="Enter Server Password..." />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="509.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#AddCoursePanel" prefHeight="50.0" prefWidth="240.0" styleClass="MoodleButton" text="Add Course" textFill="WHITE" />
+                  <Button mnemonicParsing="false" onAction="#deleteSelectedCourses" prefHeight="50.0" prefWidth="240.0" styleClass="MoodleButton" text="Delete course(s)" textFill="WHITE" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Label layoutX="3.0" layoutY="175.0" text="Will it be useful this time? Who knows." />
+      <ScrollPane layoutY="307.0" prefHeight="335.0" prefWidth="986.0">
+         <content>
+            <FlowPane fx:id="flowPane" prefHeight="338.0" prefWidth="965.0" />
+         </content></ScrollPane>
+      <TextArea editable="false" layoutX="279.0" layoutY="13.0" prefHeight="170.0" prefWidth="234.0" style="-fx-background: #f9f0e8;" text="Usage: &#10;&#10;1. Enter server URL and password (if no password, leave it blank)&#10;2. Add Course and enter the id, folder location to use, and type of acquisition (download or update). &#10;3. Click on start.&#10;&#10;Note: Updater will continue until you stop it or the application is killed." wrapText="true">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </TextArea>
+      <Label layoutY="154.0" text="*the inholland moodle environment" />
+      <Label layoutX="261.0" layoutY="6.0" text="*" />
+      <TextArea editable="false" layoutX="738.0" layoutY="13.0" prefHeight="170.0" prefWidth="234.0" style="-fx-background: #f9f0e8;" text="Want to contribute?&#10;&#10;Head over to the github:&#10;&lt;link&gt;&#10;&#10;Something wrong?&#10;Create an issue:&#10;&lt;link&gt;&#10;&#10;" wrapText="true">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </TextArea>
+   </children>
+</Pane>
