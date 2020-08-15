@@ -231,9 +231,6 @@ public class MoodleAutomater {
         } catch (IOException e) {
             new RuntimeException(e.getMessage());
         }
-        //todo: clean when done, debugging peek results.
-        //System.out.println("Peeking: " + url);
-        //System.out.println("result: " + doc.text());
         System.out.println("Headers from: " + url);
         System.out.println(doc.text());
         var split = doc.text().split("\\|");

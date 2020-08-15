@@ -228,7 +228,7 @@ public class MoodleTask extends Task {
         return fileCount;
     }
 
-    private void printFolders(MoodleFolder folder){ // test method todo: delete later.
+    private void printFolders(MoodleFolder folder){ // test method
         System.out.println(folder.getName() + ": " + folder.getPath());
         if(folder.getMoodleFolders().size() > 0){
             System.out.println("Subfolder of: " + folder.getName());

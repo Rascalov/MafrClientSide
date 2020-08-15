@@ -19,7 +19,6 @@ public class MoodleStopEventHandler implements EventHandler<ActionEvent> {
     }
     @Override
     public void handle(ActionEvent actionEvent) {
-        // todo: button needs the other handler again and change his text and shit.
         // the fields need to be re-enabled (now possible with static nodesMap).
         // get string prop to display the cancellation.
         Button source = ((Button) actionEvent.getSource());
