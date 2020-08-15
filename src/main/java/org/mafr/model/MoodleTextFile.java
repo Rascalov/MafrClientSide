@@ -11,7 +11,6 @@ public class MoodleTextFile extends MoodleFile{
         super(downloadLink);
     }
 
-    @Override
     public void download(String path) {
         new File(path + "/" + this.getName());
         try {

@@ -42,7 +42,4 @@ public class MoodleFile {
     public static long httpDateTimeHeaderToMs(String httpHeaderDateTime){
         return LocalDateTime.parse(httpHeaderDateTime, DateTimeFormatter.RFC_1123_DATE_TIME).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
-    public void download(String path){
-
-    }
 }

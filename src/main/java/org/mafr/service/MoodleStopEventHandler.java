@@ -25,10 +25,11 @@ public class MoodleStopEventHandler implements EventHandler<ActionEvent> {
         Button source = ((Button) actionEvent.getSource());
         source.setDisable(true);
         String id = source.getId().split("_")[0];
+        SimpleStringProperty logMessage = (SimpleStringProperty) HomeController.propertyMap.get(id + HomeController.logLabelMessageSuffix);
+        Platform.runLater(new UpdateLabelRunnable(logMessage, "Cancelling..."));
         TextField courseId = (TextField) HomeController.nodesMap.get(id + "_courseIdField");
         ChoiceBox<String> type = (ChoiceBox<String>) HomeController.nodesMap.get(id + "_acquisitionChoiceBox");
         TextField folder = (TextField) HomeController.nodesMap.get(id + "_locationField");
-        SimpleStringProperty logMessage = (SimpleStringProperty) HomeController.propertyMap.get(id + HomeController.logLabelMessageSuffix);
         Button browseButton = (Button) HomeController.nodesMap.get(id + HomeController.browseButtonSuffix);
         if(taskToHandle.cancel(false)){
             System.out.println("Stopped for real");
@@ -36,7 +37,7 @@ public class MoodleStopEventHandler implements EventHandler<ActionEvent> {
         else {
             System.out.println("Failed to stop");
         }
-        Platform.runLater(new UpdateLabelRunnable(logMessage, "Cancelling..."));
+
         courseId.setDisable(false);
         type.setDisable(false);
         folder.setDisable(false);

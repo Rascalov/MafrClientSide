@@ -63,12 +63,11 @@ public class MoodleAutomater {
             else {
                 System.out.println(e);
                 System.out.println(e.getMessage());
-                throw new RuntimeException("Connection timeout");
+                throw new RuntimeException("Error: Connection timeout");
             }
         }
         Elements heading = doc.select("div.page-header-headings");
         MoodleFolder mainFolder = new MoodleFolder(heading.text());
-        // todo: implement the topmenu structure.
         if(doc.selectFirst("ul.mt-topmenu") != null){
             for (Element menuOption : doc.selectFirst("ul.mt-topmenu").select("a")){
                 String folderName = menuOption.selectFirst("span.mt-btn-text").text();
@@ -84,14 +83,13 @@ public class MoodleAutomater {
             Element element = doc.select("div.mt-sitemenus").get(0);
             mainFolder = getLiteralStructure(mainFolder, element);
         }
-        // We take the child nodes, determine how many layers they have per child
         return mainFolder;
     }
 
     public void downloadFile(MoodleFile file, String path){
         // get jsoup response and download file.
-        if(file instanceof MoodleTextFile) // but if it's a text file, let it get the string bytes
-            file.download(path);
+        if(file instanceof MoodleTextFile) // but if it's a text/html file, let it get the string bytes
+            ((MoodleTextFile)file).download(path);
         else {
             String dl = file.getDownloadLink();
             try {

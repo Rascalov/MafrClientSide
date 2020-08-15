@@ -1,5 +1,6 @@
 package org.mafr.service;
 
+import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -11,7 +12,6 @@ public class MoodleStartEventHandler implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        System.out.println("Start with password: " + HomeController.getServerPassword());
         Button source = ((Button) actionEvent.getSource());
         String id = source.getId().split("_")[0];
         TextField courseId = (TextField) HomeController.nodesMap.get(id + "_courseIdField");

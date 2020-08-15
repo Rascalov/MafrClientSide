@@ -30,6 +30,7 @@ public class App extends Application {
         stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("icon.png")));
         scene = new Scene(loadFXML("Home"));
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

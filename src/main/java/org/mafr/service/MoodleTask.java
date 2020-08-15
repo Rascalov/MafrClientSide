@@ -52,19 +52,19 @@ public class MoodleTask extends Task {
         }
         try{
             while (true){
-                if(isCancelled()){stopCourseProcess(false); return null;}
+                if(isCancelled()){stopCourseProcess(true); return null;}
                 MoodleFolder mainFolder = requestStructure();
                 if(mainFolder == null){
                     stopCourseProcess(false);
                     return null;
                 }
-                if(isCancelled()){stopCourseProcess(false); return null;}
+                if(isCancelled()){stopCourseProcess(true); return null;}
                 Platform.runLater(new UpdateLabelRunnable(logMessage, "Received structure, creating folders..."));
                 Platform.runLater(new UpdateLabelRunnable((SimpleStringProperty) HomeController.propertyMap.get(id + HomeController.courseTitleLabelSuffix), mainFolder.getName()));
                 createFolders(mainFolder, folder.getText() + "/");
                 Platform.runLater(new UpdateLabelRunnable(logMessage, "Folders created, indexing files..."));
                 mainFolder = indexFiles(mainFolder);
-                if(isCancelled()){stopCourseProcess(false); return null;}
+                if(isCancelled()){stopCourseProcess(true); return null;}
                 switch (type.getValue()){
                     case "Download":
                         totalFiles = getTotalFiles(mainFolder);
@@ -154,8 +154,6 @@ public class MoodleTask extends Task {
             startButton.setOnAction(new MoodleStartEventHandler());
             if(isCleanExit)
                 logMessage.setValue("Finished.");
-            else
-                logMessage.setValue("");
         });
     }
     private MoodleFolder indexFiles(MoodleFolder folder){

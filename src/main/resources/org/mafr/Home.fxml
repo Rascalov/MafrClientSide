@@ -45,7 +45,7 @@
       </TextArea>
       <Label layoutY="154.0" text="*the inholland moodle environment" />
       <Label layoutX="261.0" layoutY="6.0" text="*" />
-      <TextArea editable="false" layoutX="738.0" layoutY="13.0" prefHeight="170.0" prefWidth="234.0" style="-fx-background: #f9f0e8;" text="Want to contribute?&#10;&#10;Head over to the github:&#10;&lt;link&gt;&#10;&#10;Something wrong?&#10;Create an issue:&#10;&lt;link&gt;&#10;&#10;" wrapText="true">
+      <TextArea editable="false" layoutX="738.0" layoutY="13.0" prefHeight="170.0" prefWidth="234.0" style="-fx-background: #f9f0e8;" text="Want to contribute?&#10;&#10;Head over to the github:&#10;https://github.com/Rascalov/MafrClientSide&#10;&#10;Something wrong?&#10;Create an issue:&#10;https://github.com/Rascalov/MafrClientSide/issues/new&#10;&#10;" wrapText="true">
          <font>
             <Font size="10.0" />
          </font>

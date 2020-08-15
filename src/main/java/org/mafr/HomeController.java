@@ -17,6 +17,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -31,9 +32,10 @@ public class HomeController {
     public static HashMap<String, Property> propertyMap = new HashMap<>();
     public static final String buttonSuffix = "_startButton";
     public static final String progressIndicatorSuffix = "_progressIndicator";
+    public static final String typeSuffix = "_acquisitionChoiceBox";
     public static final String courseIdSuffix = "_courseIdField";
     public static final String logLabelSuffix = "_logLabel";
-    public static final String folderLocationSuffix = "_folderLocationField";
+    public static final String folderLocationSuffix = "_locationField";
     public static final String logLabelMessageSuffix = "_logLabelMessage";
     public static final String courseTitleLabelSuffix = "_courseTitleLabel";
     public static final String browseButtonSuffix = "_browseButton";
@@ -61,19 +63,39 @@ public class HomeController {
             serverUrl.setText(credentials.get("serverURL"));
             serverPassword.setText(credentials.get("serverPassword"));
         }
-        currentStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
-            @Override
-            // todo: method that saves all created courses, adds them in initializer and starts those designated for updating
-            public void handle(WindowEvent windowEvent) {
+        preferences.getSavedCourses().forEach((k, v) ->{
+            String[] values = v.split(";");
+            AddCoursePanel();
+            Pane pane = (Pane) flowPane.getChildren().get(flowPane.getChildren().size()-1);
+            String id = pane.getId().split("_")[0];
+            System.out.println("Adding for Panel id: " + id);
+            System.out.println("Id from previous session: " + k);
+            System.out.println("Values: " + v);
+            ((TextField)nodesMap.get(id+ courseIdSuffix)).setText(values[0]);
+            ((ChoiceBox<String>)nodesMap.get(id+ typeSuffix)).setValue(values[1]);
+            ((TextField)nodesMap.get(id+ folderLocationSuffix)).setText(values[2]);
 
-                try {
-                    preferences.clearCredentials();
-                } catch (BackingStoreException e) {
-                    e.printStackTrace();
-                }
-                preferences.rememberServerCredentials(serverUrl.getText(), serverPassword.getText());
-                System.out.println("closing, saved server credentials");
+            if( ((ChoiceBox<String>)nodesMap.get(id+ typeSuffix)).getValue().equals("Update")){
+                ((Button) nodesMap.get(id+buttonSuffix)).fire();
             }
+
+        });
+        currentStage.setOnCloseRequest(windowEvent -> {
+            try {
+                preferences.clearCredentials();
+            } catch (BackingStoreException e) {
+                e.printStackTrace();
+            }
+            for (var pane : flowPane.getChildren()){
+                String id = pane.getId().split("_")[0];
+                String courseId = ((TextField) nodesMap.get(id + courseIdSuffix)).getText();
+                String type = (String) ((ChoiceBox) nodesMap.get(id + typeSuffix)).getValue();
+                String location = ((TextField) nodesMap.get(id + folderLocationSuffix)).getText();
+                preferences.saveCourse(courseId, type, location, id);
+                System.out.println("Saved course id:" + id);
+            }
+            preferences.rememberServerCredentials(serverUrl.getText(), serverPassword.getText());
+            System.out.println("closing, saved server credentials");
         });
     }
     @FXML
@@ -85,10 +107,11 @@ public class HomeController {
         });
     }
     private void removePane(String id) {
-        // first if the button is on "Stop", click it to stop it.
+        // first if the button is on "Stop", fire the event to cancel the task and then delete it.
         Button target = (Button) nodesMap.get(id+"_startButton");
-        target.fire();
-        //todo: if clause to fire and removing the pane.
+        if(target.getText().equals("Stop"))
+            target.fire();
+        flowPane.getChildren().remove(nodesMap.get(id + "_CoursePane"));
     }
 
     @FXML
@@ -98,6 +121,7 @@ public class HomeController {
         if(size > 0) id = size + 1; else id = 1;
         Pane container = new Pane();
         container.getStyleClass().add("CoursePane");
+        container.idProperty().set(id + "_CoursePane");
         container.setPrefWidth(480);
         container.setPrefHeight(240);
         // vbox
@@ -109,6 +133,7 @@ public class HomeController {
         vBoxContainer.getChildren().addAll(buildTitleBox(id), buildCourseBox(id), buildTypeInputBox(id), buildLocationBox(id));
         container.getChildren().add(vBoxContainer);
         container.getChildren().add(buildStartBox(id));
+        nodesMap.put(id + "_CoursePane", container);
         flowPane.getChildren().add(container);
     }
 
@@ -143,7 +168,7 @@ public class HomeController {
         courseIdField.setPrefHeight(26);
         courseIdField.promptTextProperty().setValue("CourseId...");
         courseIdField.idProperty().setValue(id + "_courseIdField");
-        nodesMap.put(id+"_courseIdField", courseIdField);
+        nodesMap.put(id+ courseIdSuffix, courseIdField);
 
         Label courseIdLabel = new Label("Course ID:");
         courseIdLabel.setPrefHeight(25);
@@ -174,7 +199,7 @@ public class HomeController {
         return acquisitionHbox;
     }
     private HBox buildLocationBox(int id){
-        String locationName = id+"_locationField";
+        String locationName = id + folderLocationSuffix;
         HBox locationBox = new HBox();
         locationBox.setPrefHeight(21);
         locationBox.setPrefWidth(474);
@@ -232,19 +257,16 @@ public class HomeController {
         startHbox.setLayoutY(185);
         return  startHbox;
     }
-    EventHandler<ActionEvent> selectFolder = new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent actionEvent) {
-            DirectoryChooser directoryChooser = new DirectoryChooser();
-            directoryChooser.setTitle("Select Folder");
-            final File selectedDirectory =
-                    directoryChooser.showDialog(App.getStage());
-            Button source = ((Button)actionEvent.getSource());
-            String id = source.getId().split("_")[0];
-            TextField folder = (TextField) nodesMap.get(id+"_locationField");
-            if(selectedDirectory != null)
-                folder.setText(selectedDirectory.getAbsolutePath());
-        }
+    EventHandler<ActionEvent> selectFolder = actionEvent -> {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Select Folder");
+        final File selectedDirectory =
+                directoryChooser.showDialog(App.getStage());
+        Button source = ((Button)actionEvent.getSource());
+        String id = source.getId().split("_")[0];
+        TextField folder = (TextField) nodesMap.get(id+"_locationField");
+        if(selectedDirectory != null)
+            folder.setText(selectedDirectory.getAbsolutePath());
     };
 
 }
