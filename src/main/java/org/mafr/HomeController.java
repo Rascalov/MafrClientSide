@@ -58,23 +58,29 @@ public class HomeController {
             serverUrl.setText(credentials.get("serverURL"));
             serverPassword.setText(credentials.get("serverPassword"));
         }
-        preferences.getSavedCourses().forEach((k, v) ->{
-            String[] values = v.split(";");
-            AddCoursePanel();
-            Pane pane = (Pane) flowPane.getChildren().get(flowPane.getChildren().size()-1);
-            String id = pane.getId().split("_")[0];
-            System.out.println("Adding for Panel id: " + id);
-            System.out.println("Id from previous session: " + k);
-            System.out.println("Values: " + v);
-            ((TextField)nodesMap.get(id+ courseIdSuffix)).setText(values[0]);
-            ((ChoiceBox<String>)nodesMap.get(id+ typeSuffix)).setValue(values[1]);
-            ((TextField)nodesMap.get(id+ folderLocationSuffix)).setText(values[2]);
+        try{
+            preferences.getSavedCourses().forEach((k, v) ->{
+                String[] values = v.split(";");
+                AddCoursePanel();
+                Pane pane = (Pane) flowPane.getChildren().get(flowPane.getChildren().size()-1);
+                String id = pane.getId().split("_")[0];
+                System.out.println("Adding for Panel id: " + id);
+                System.out.println("Id from previous session: " + k);
+                System.out.println("Values: " + v);
+                ((TextField)nodesMap.get(id+ courseIdSuffix)).setText(values[0]);
+                ((ChoiceBox<String>)nodesMap.get(id+ typeSuffix)).setValue(values[1]);
+                ((TextField)nodesMap.get(id+ folderLocationSuffix)).setText(values[2]);
 
-            if( ((ChoiceBox<String>)nodesMap.get(id+ typeSuffix)).getValue().equals("Update")){
-                ((Button) nodesMap.get(id+buttonSuffix)).fire();
-            }
+                if( ((ChoiceBox<String>)nodesMap.get(id+ typeSuffix)).getValue().equals("Update")){
+                    ((Button) nodesMap.get(id+buttonSuffix)).fire();
+                }
 
-        });
+            });
+        }catch (Exception e){
+            System.out.println("Error occurred while retrieving previous session's courses: ");
+            e.printStackTrace();
+        }
+
         currentStage.setOnCloseRequest(windowEvent -> {
             try {
                 preferences.clearCredentials();
