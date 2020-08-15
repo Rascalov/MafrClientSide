@@ -7,9 +7,6 @@ import java.nio.file.Paths;
 
 public class MoodleTextFile extends MoodleFile{
     private String text;
-    public MoodleTextFile(String downloadLink) {
-        super(downloadLink);
-    }
 
     public void download(String path) {
         new File(path + "/" + this.getName());

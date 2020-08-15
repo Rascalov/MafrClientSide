@@ -6,10 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.mafr.model.MoodleFolder;
-import org.mafr.service.MoodleAutomater;
 
 import java.io.IOException;
 

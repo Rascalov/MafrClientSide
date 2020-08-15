@@ -1,12 +1,7 @@
 package org.mafr;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.prefs.BackingStoreException;
-
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,14 +12,14 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.mafr.model.MoodlePreferences;
-import org.mafr.service.*;
-import org.mafr.model.MoodleFolder;
+import org.mafr.service.MoodleStartEventHandler;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.prefs.BackingStoreException;
 
 
 public class HomeController {

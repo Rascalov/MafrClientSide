@@ -1,11 +1,13 @@
 package org.mafr.service;
 
-import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
 import org.mafr.HomeController;
 
 public class MoodleStartEventHandler implements EventHandler<ActionEvent> {

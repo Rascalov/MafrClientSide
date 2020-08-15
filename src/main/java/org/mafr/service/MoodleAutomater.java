@@ -1,11 +1,8 @@
 package org.mafr.service;
 
-import javafx.application.Platform;
-import javafx.scene.control.Label;
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
-import org.jsoup.helper.HttpConnection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -13,18 +10,20 @@ import org.mafr.model.MoodleFile;
 import org.mafr.model.MoodleFolder;
 import org.mafr.model.MoodleTextFile;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
-import java.util.logging.Level;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class MoodleAutomater {
     Logger logger = Logger.getLogger(MoodleAutomater.class.getName());
-    private String courseStartUrl = "https://moodle.inholland.nl/course/view.php?id=";
     private int courseId;
     private String serverUrl;
     private String serverPassword;

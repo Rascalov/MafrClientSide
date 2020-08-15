@@ -8,8 +8,6 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import org.mafr.HomeController;
 
 public class MoodleStopEventHandler implements EventHandler<ActionEvent> {

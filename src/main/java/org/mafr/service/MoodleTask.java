@@ -8,12 +8,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import org.mafr.HomeController;
-import org.mafr.model.MoodleFile;
 import org.mafr.model.MoodleFolder;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 
 public class MoodleTask extends Task {
     private int totalFiles;
