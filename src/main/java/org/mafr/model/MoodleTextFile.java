@@ -26,6 +26,7 @@ public class MoodleTextFile extends MoodleFile{
     }
     @Override
     public String getName(){
-        return super.getName() + ".html";
+        // I discovered Colon is an illegal character on windows and mac
+        return (super.getName() + ".html").replaceAll(":", "-");
     }
 }

@@ -22,7 +22,6 @@
             <classifier>linux</classifier>
         </dependency>
 
-        <!-- use with building artifact todo:
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
@@ -36,7 +35,6 @@
             <version>11.0.2</version>
             <classifier>mac</classifier>
         </dependency>
-        -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>

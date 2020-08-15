@@ -50,8 +50,8 @@ public class MoodleTask extends Task {
             stopCourseProcess(false);
             return null;
         }
-        try{
-            while (true){
+        while (true){
+            try{
                 if(isCancelled()){stopCourseProcess(true); return null;}
                 MoodleFolder mainFolder = requestStructure();
                 if(mainFolder == null){
@@ -81,15 +81,17 @@ public class MoodleTask extends Task {
                         }
                         break;
                 }
+             }
+            catch (RuntimeException e){
+                Platform.runLater(new UpdateLabelRunnable(logMessage, e.getMessage()));
+                System.out.println("Error message: " + e.getMessage());
+                System.out.println("Stacktrace: ");
+                e.printStackTrace();
+                if(type.getValue().equals("Download")){
+                    stopCourseProcess(false);
+                    return null;
+                }
             }
-        }
-        catch (RuntimeException e){
-            Platform.runLater(new UpdateLabelRunnable(logMessage, e.getMessage()));
-            System.out.println("Error message: " + e.getMessage());
-            System.out.println("Stacktrace: ");
-            e.printStackTrace();
-            stopCourseProcess(false);
-            return null;
         }
     }
 
@@ -100,6 +102,7 @@ public class MoodleTask extends Task {
             Platform.runLater(new UpdateLabelRunnable(logMessage, "Checking file: " + moodleFile.getName()));
             File compareFile = new File(folder.getPath() + "/" + moodleFile.getName());
             if(compareFile.exists()){
+                // if the currently downloaded file's LM is lower than the "new" file, download it.
                 if(compareFile.lastModified() < moodleFile.getLastModified()){
                     Platform.runLater(new UpdateLabelRunnable(logMessage, "Downloading file: " + moodleFile.getName()));
                     automater.downloadFile(moodleFile, folder.getPath());
