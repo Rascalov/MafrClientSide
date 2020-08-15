@@ -74,15 +74,10 @@ public class MoodleTask extends Task {
                         return null;
                     case "Update":
                         updateFiles(mainFolder);
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        break;
+                        Thread.sleep(2000);
                 }
              }
-            catch (RuntimeException e){
+            catch (RuntimeException | InterruptedException e){
                 Platform.runLater(new UpdateLabelRunnable(logMessage, e.getMessage()));
                 System.out.println("Error message: " + e.getMessage());
                 System.out.println("Stacktrace: ");

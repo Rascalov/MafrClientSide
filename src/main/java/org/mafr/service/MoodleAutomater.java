@@ -63,7 +63,7 @@ public class MoodleAutomater {
             else {
                 System.out.println(e);
                 System.out.println(e.getMessage());
-                throw new RuntimeException("Error: Connection timeout");
+                throw new RuntimeException("Connection timeout");
             }
         }
         Elements heading = doc.select("div.page-header-headings");
