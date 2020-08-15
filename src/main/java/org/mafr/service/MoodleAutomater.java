@@ -52,8 +52,8 @@ public class MoodleAutomater {
                 if(hse.getStatusCode() == 401)
                     throw new RuntimeException("Error: Incorrect password or URL");
                 else if (hse.getStatusCode() == 400)
-                    throw new RuntimeException("Error: Course does not exist or can not be enrolled." +
-                            " If your course exists, the server credentials are invalid, notify the owner!");
+                    throw new RuntimeException("Error: Course does not exist or can not be enrolled in." +
+                            " Contact the server owner for more information.");
                 else {
                     System.out.println("message: " + hse.getMessage());
                     System.out.println("code: " + hse.getStatusCode());
