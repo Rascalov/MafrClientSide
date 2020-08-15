@@ -54,7 +54,7 @@ public class MoodleTask extends Task {
             try{
                 if(isCancelled()){stopCourseProcess(true); return null;}
                 MoodleFolder mainFolder = requestStructure();
-                if(mainFolder == null){
+                if(mainFolder == null && type.getValue().equals("Download")){
                     stopCourseProcess(false);
                     return null;
                 }
