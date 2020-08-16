@@ -196,11 +196,15 @@ public class MoodleAutomater {
         var moodleFiles = new ArrayList<MoodleFile>();
         for(var video : doc.select("video")){
             String url = video.selectFirst("source").attr("src");
-            moodleFiles.add(getFile(peek(url), url));
+            var file = getFile(peek(url), url);
+            if(file != null)
+                moodleFiles.add(file);
         }
         for (var image : doc.select("img[src^=https://moodle.inholland.nl/pluginfile.php]")){
             String url = image.attr("src");
-            moodleFiles.add(getFile(peek(url), url));
+            var file = getFile(peek(url), url);
+            if(file != null)
+                moodleFiles.add(file);
         }
         return moodleFiles;
     }
@@ -295,7 +299,8 @@ public class MoodleAutomater {
         snapshotFile.setName(folderName.replaceAll("[^a-zA-Z0-9\\.\\-]", "-"));
         folderFiles.add(snapshotFile);
         for (var downloadLink : folderMain.selectFirst("div.filemanager").select("a:not([class])")){
-            folderFiles.add(getFile(peek(downloadLink.attr("href")), downloadLink.attr("href")));
+            var file = getFile(peek(downloadLink.attr("href")), downloadLink.attr("href"));
+            folderFiles.add(file);
         }
         MoodleFolder folderMod = new MoodleFolder(folderName);
         // user folderMod.getName instead of folderName, because the prior is sanitized.
@@ -353,13 +358,20 @@ public class MoodleAutomater {
     }
 
     private MoodleFile getFile(Map<String, String> cookies, String link){
-        String contentHeader = cookies.get("Content-Disposition");
-        String name = contentHeader.substring(contentHeader.indexOf("\"")+1, contentHeader.lastIndexOf("\""));
-        MoodleFile file = new MoodleFile(link);
-        file.setName(name);
-        file.setLastModified(cookies.get("Last-Modified"));
-        file.setSize(Integer.parseInt(cookies.get("Content-Length")));
-        return file;
+        try {
+            String contentHeader = cookies.get("Content-Disposition");
+            String name = contentHeader.substring(contentHeader.indexOf("\"")+1, contentHeader.lastIndexOf("\""));
+            MoodleFile file = new MoodleFile(link);
+            file.setName(name);
+            file.setLastModified(cookies.get("Last-Modified"));
+            file.setSize(Integer.parseInt(cookies.get("Content-Length")));
+            return file;
+        }
+        catch (NullPointerException npe){
+            System.out.println("Link resulted in null values: " + link);
+            return null;
+        }
+
     }
     private List<MoodleFile> findFilesGenerically(Element elementToSearch){
         // some courses have plugin files in the weirdest places, this method can be used to find them if suspicion arises.
@@ -367,7 +379,9 @@ public class MoodleAutomater {
         for(var element : elementToSearch.select("a[href^=https://moodle.inholland.nl/pluginfile.php]")){
             System.out.println("Found Generically: " + element.attr("href"));
             //System.out.println(element.outerHtml());
-            files.add(getFile(peek(element.attr("href")), element.attr("href")));
+            var file = getFile(peek(element.attr("href")), element.attr("href"));
+            if(file != null)
+                files.add(file);
         }
         return files;
     }
