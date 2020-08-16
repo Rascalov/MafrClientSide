@@ -255,10 +255,11 @@ public class MoodleAutomater {
                 break;
             case "folder": folder = getPotentialFolderFiles(li, folder);
                 break;
-                /*
-                todo: implement folder and label, maybe book too.
+            //todo: implement folder and label, maybe book too.
             case "book": folder = getPotentialBookFiles(li, folder);
                 break;
+                /*
+
 
             case "forum": folder = getForumLink(li, folder);
                 break;
@@ -280,6 +281,15 @@ public class MoodleAutomater {
                 System.out.println("mod not yet implemented: " + modtype);
                 break;
         }
+        return folder;
+    }
+
+    private MoodleFolder getPotentialBookFiles(Element li, MoodleFolder folder) {
+        Document doc = visit(li.selectFirst("a[href^=https://moodle.inholland.nl/mod/book]").attr("href"));
+        String downloadLink = doc.selectFirst("a[href^=https://moodle.inholland.nl/mod/book/tool/exportepub]").attr("href");
+        var file = getFile(peek(downloadLink), downloadLink);
+        if(file != null)
+            folder.getMoodleFiles().add(file);
         return folder;
     }
 
