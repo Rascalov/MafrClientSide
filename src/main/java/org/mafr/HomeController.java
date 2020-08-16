@@ -139,7 +139,6 @@ public class HomeController {
     }
 
     private HBox buildTitleBox(int id){
-        String courseLabelName = id+"_courseLabel";
         String checkBoxName = id+"_checkBox";
         HBox titleHbox = new HBox();
         titleHbox.setPrefHeight(44);
@@ -156,7 +155,6 @@ public class HomeController {
         courseLabel.setPrefHeight(44);
         propertyMap.put(id + courseTitleLabelSuffix, new SimpleStringProperty("Course Name"));
         courseLabel.textProperty().bind(propertyMap.get(id + courseTitleLabelSuffix));
-        nodesMap.put(courseLabelName, courseLabel);
         titleHbox.getChildren().addAll(containerCheckBox, courseLabel);
         return titleHbox;
     }

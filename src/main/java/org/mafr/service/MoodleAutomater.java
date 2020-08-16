@@ -311,7 +311,7 @@ public class MoodleAutomater {
         if(li.selectFirst("a[href^=https://moodle.inholland.nl/mod/page/view]") != null){
             Document doc = visit(li.selectFirst("a").attr("href"));
             MoodleTextFile moodleTextFile = new MoodleTextFile(doc.selectFirst("div[role=main]").html(), "");
-            moodleTextFile.setName(li.selectFirst("span.instancename").text());
+            moodleTextFile.setName(li.selectFirst("span.instancename").text().replaceAll("[^a-zA-Z0-9\\.\\-]", "-"));
             folder.getMoodleFiles().add(moodleTextFile);
             folder.getMoodleFiles().addAll(findFilesGenerically(doc.selectFirst("div[role=main]")));
         }
