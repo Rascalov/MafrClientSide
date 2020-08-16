@@ -1,5 +1,5 @@
 # Moodle Automatic File Retriever Client
-<img src="https://raw.githubusercontent.com/Rascalov/Rascalov.github.io/master/gif/DownloadUpdate.gif">
+<img src="https://raw.githubusercontent.com/Rascalov/Rascalov.github.io/master/gif/DownloadUpdate.gif" width="300" height="400">
 
 
 A client that allows the user to access the Inholland Moodle environment. This was inspired by my original Console app
