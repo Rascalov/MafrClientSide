@@ -33,5 +33,12 @@ In case you didn't notice the gif, here's a screenshot:
 <img src="https://raw.githubusercontent.com/Rascalov/Rascalov.github.io/master/images/ClientLayout.png">
 
 
+### Servers
+My own:
+https://dry-citadel-67751.herokuapp.com
+
+password: inhollandFree
+
+
 
 
