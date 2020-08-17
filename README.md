@@ -25,7 +25,9 @@ This allows the user to still have access to resources that can't be downloaded 
 * embedded text without files
 * for more, visit the write up
 
+The CourseId can be found on the url of the course:
 
+<img src="https://raw.githubusercontent.com/Rascalov/Rascalov.github.io/master/images/CourseId.png">
 
 ## The GUI
 In case you didn't notice the gif, here's a screenshot:
