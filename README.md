@@ -1,9 +1,20 @@
 # Moodle Automatic File Retriever Client
+
+
+
+### Servers
+I will update this list when people reach out to have their own servers publicly published
+#### My own:
+https://dry-citadel-67751.herokuapp.com
+
+password: inhollandFree
+
+
+
 <img src="https://raw.githubusercontent.com/Rascalov/Rascalov.github.io/master/gif/DownloadUpdate.gif" width="600" height="400">
 
 
-A client that allows the user to access the Inholland Moodle environment. This was inspired by my original Console app
-with sharing its namesake.
+A client that allows the user to access the Inholland Moodle environment. This was inspired by my original Console app sharing its namesake.
 
 I made a small write up/rant on the creation of the MAFR client and server:
 https://rascalov.github.io/#moodle-automatic-file-retriever-mafr
@@ -23,7 +34,7 @@ This allows the user to still have access to resources that can't be downloaded 
 * assignments
 * group links
 * embedded text without files
-* for more, visit the write up
+* and more, visit the write up
 
 The CourseId can be found on the url of the course:
 
@@ -33,14 +44,6 @@ The CourseId can be found on the url of the course:
 In case you didn't notice the gif, here's a screenshot:
 
 <img src="https://raw.githubusercontent.com/Rascalov/Rascalov.github.io/master/images/ClientLayout.png">
-
-
-### Servers
-My own:
-https://dry-citadel-67751.herokuapp.com
-
-password: inhollandFree
-
 
 
 
