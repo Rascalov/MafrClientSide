@@ -155,7 +155,7 @@ public class MoodleTask extends Task {
     private MoodleFolder indexFiles(MoodleFolder folder){
         Platform.runLater(new UpdateLabelRunnable(logMessage, "Indexing files for: " + folder.getName()));
         int attempts = 1;
-        while (attempts != 10){
+        while (attempts != 35){
             if(isCancelled())
                 return null;
             try{
@@ -172,7 +172,7 @@ public class MoodleTask extends Task {
                     // Timeout most likely
                     attempts++;
                     Platform.runLater(new UpdateLabelRunnable(logMessage, "Indexing timed out. Attempt: " +attempts));
-                    if(attempts == 10)
+                    if(attempts == 35)
                         throw new RuntimeException("Error:\n Indexing timed out.");
                 }
                 else{
